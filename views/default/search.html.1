@@ -1,0 +1,62 @@
+{{extend 'layout.html'}}
+<html>
+    <head>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+        <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+        <script></script>
+    </head>
+<h1>Search</h1>
+
+        <form class="form-horizontal">
+  <div class="form-group form-group-lg">
+    <label class="col-sm-2 control-label" for="formGroupInputLarge">Large label</label>
+    <div class="col-sm-10">
+      <input class="form-control" type="text" id="formGroupInputLarge" placeholder="Large input">
+    </div>
+  </div>
+  <div class="form-group form-group-sm">
+    <label class="col-sm-2 control-label" for="formGroupInputSmall">Small label</label>
+    <div class="col-sm-10">
+      <input class="form-control" type="text" id="formGroupInputSmall" placeholder="Small input">
+    </div>
+  </div>
+</form>
+<table>
+    
+
+    
+    
+    <form class="form-horizontal" role="form">
+        <tr>
+            <td class="col-xs-1" style="text-align:right">
+                <label class="" for="search_box">Search</label>
+            </td>
+            <td class="col-xs-8">
+                <input type="text" class="form-control input-lg"  name="q" id="search_box" />
+            </td>
+            <td class="col-xs-1">
+                <input type="submit" type="button" class="btn btn-primary" id="mybutton" value="Find it!" onclick="jQuery('#loading').slideToggle()"/>
+            </td>
+        </tr>
+    </form>
+</table>
+    {{if request.vars['q'] == '':}}
+        <table>
+            <tr>
+                <td></td>
+            </tr>
+        </table>
+    {{else:}}
+        <table>
+            <tr>
+                {{ i = 0 }}
+                {{while i < len(post):}}
+                <td>
+                    On {{=created_on[i]}} {{=A(B(user_id[i]))}} said:
+                    <blockquote class="post_body">{{=post[i]}}</blockquote>
+                </td>
+            </tr>
+            {{i=i+1}}
+         {{pass}}
+        </table>
+    {{pass}}

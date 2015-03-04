@@ -1,0 +1,777 @@
+(dp1
+S'output'
+p2
+S"<type 'exceptions.AttributeError'> 'tuple' object has no attribute 'cached_posts'"
+p3
+sS'layer'
+p4
+S'/var/www/web2py/applications/twitkiller/views/default/timeline.load'
+p5
+sS'code'
+p6
+S'for posts in cached_posts:\n    response.write(\'\\n<div class="posts">\\n  SOMEBODY says <blockquote class="post_body">\', escape=False)\n    response.write(posts.cached_posts)\n    response.write(\'</blockquote>\\n</div>\\n\\n\', escape=False)\n    pass\nresponse.write(\'\\n\', escape=False)'
+p7
+sS'snapshot'
+p8
+(dp9
+S'exception'
+p10
+(dp11
+S'__hash__'
+p12
+S"<method-wrapper '__hash__' of exceptions.AttributeError object>"
+p13
+sS'__setattr__'
+p14
+S"<method-wrapper '__setattr__' of exceptions.AttributeError object>"
+p15
+sS'__reduce_ex__'
+p16
+S'<built-in method __reduce_ex__ of exceptions.AttributeError object>'
+p17
+sS'__getslice__'
+p18
+S"<method-wrapper '__getslice__' of exceptions.AttributeError object>"
+p19
+sS'__getitem__'
+p20
+S"<method-wrapper '__getitem__' of exceptions.AttributeError object>"
+p21
+sS'__setstate__'
+p22
+S'<built-in method __setstate__ of exceptions.AttributeError object>'
+p23
+sS'args'
+p24
+S'("\'tuple\' object has no attribute \'cached_posts\'",)'
+p25
+sS'__reduce__'
+p26
+S'<built-in method __reduce__ of exceptions.AttributeError object>'
+p27
+sS'__str__'
+p28
+S"<method-wrapper '__str__' of exceptions.AttributeError object>"
+p29
+sS'__format__'
+p30
+S'<built-in method __format__ of exceptions.AttributeError object>'
+p31
+sS'__getattribute__'
+p32
+S"<method-wrapper '__getattribute__' of exceptions.AttributeError object>"
+p33
+sS'__class__'
+p34
+S"<type 'exceptions.AttributeError'>"
+p35
+sS'__unicode__'
+p36
+S'<built-in method __unicode__ of exceptions.AttributeError object>'
+p37
+sS'__delattr__'
+p38
+S"<method-wrapper '__delattr__' of exceptions.AttributeError object>"
+p39
+sS'__subclasshook__'
+p40
+S'<built-in method __subclasshook__ of type object>'
+p41
+sS'__repr__'
+p42
+S"<method-wrapper '__repr__' of exceptions.AttributeError object>"
+p43
+sS'__dict__'
+p44
+S'{}'
+p45
+sS'__sizeof__'
+p46
+S'<built-in method __sizeof__ of exceptions.AttributeError object>'
+p47
+sS'__doc__'
+p48
+S"'Attribute not found.'"
+p49
+sS'__init__'
+p50
+S"<method-wrapper '__init__' of exceptions.AttributeError object>"
+p51
+sS'__new__'
+p52
+S'<built-in method __new__ of type object>'
+p53
+ssS'evalue'
+p54
+S"'tuple' object has no attribute 'cached_posts'"
+p55
+sS'request'
+p56
+cgluon.html
+XML_unpickle
+p57
+(S's\t]\x00\x00<div><table><tr><td style="font-weight:bold;vertical-align:top;">ajax</td><td style="vertical-align:top;">:</td><td><div>True</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">application</td><td style="vertical-align:top;">:</td><td><div>twitkiller</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">args</td><td style="vertical-align:top;">:</td><td><div><table></table></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">cid</td><td style="vertical-align:top;">:</td><td><div>c951839506459</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">client</td><td style="vertical-align:top;">:</td><td><div>201.81.127.122</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">controller</td><td style="vertical-align:top;">:</td><td><div>default</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">cookies</td><td style="vertical-align:top;">:</td><td><div><table><tr><td style="font-weight:bold;vertical-align:top;">session_id_admin</td><td style="vertical-align:top;">:</td><td><div>201.81.127.122-dd0bdcf4-4d92-48ec-ad02-19e414d69d71<table><tr><td style="font-weight:bold;vertical-align:top;">comment</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">domain</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">expires</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">httponly</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">max-age</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">path</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">secure</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">version</td><td style="vertical-align:top;">:</td><td><div></div></td></tr></table></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">session_id_twitkiller</td><td style="vertical-align:top;">:</td><td><div>201.81.127.122-1fc932a1-66fd-44cb-b6a8-83072fc5afc8<table><tr><td style="font-weight:bold;vertical-align:top;">comment</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">domain</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">expires</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">httponly</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">max-age</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">path</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">secure</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">version</td><td style="vertical-align:top;">:</td><td><div></div></td></tr></table></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">wp-settings-1</td><td style="vertical-align:top;">:</td><td><div>libraryContent%3Dbrowse%26editor%3Dtinymce<table><tr><td style="font-weight:bold;vertical-align:top;">comment</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">domain</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">expires</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">httponly</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">max-age</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">path</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">secure</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">version</td><td style="vertical-align:top;">:</td><td><div></div></td></tr></table></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">wp-settings-time-1</td><td style="vertical-align:top;">:</td><td><div>1419555857<table><tr><td style="font-weight:bold;vertical-align:top;">comment</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">domain</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">expires</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">httponly</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">max-age</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">path</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">secure</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">version</td><td style="vertical-align:top;">:</td><td><div></div></td></tr></table></div></td></tr></table></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">env</td><td style="vertical-align:top;">:</td><td><div><table><tr><td style="font-weight:bold;vertical-align:top;">CONTENT_LENGTH</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">CONTENT_TYPE</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">DOCUMENT_ROOT</td><td style="vertical-align:top;">:</td><td><div>/etc/nginx/html</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">HTTPS</td><td style="vertical-align:top;">:</td><td><div>on</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">HTTP_ACCEPT</td><td style="vertical-align:top;">:</td><td><div>*/*</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">HTTP_ACCEPT_ENCODING</td><td style="vertical-align:top;">:</td><td><div>gzip, deflate, sdch</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">HTTP_ACCEPT_LANGUAGE</td><td style="vertical-align:top;">:</td><td><div>en-US,en;q=0.8,pt;q=0.6,pt-BR;q=0.4</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">HTTP_CONNECTION</td><td style="vertical-align:top;">:</td><td><div>keep-alive</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">HTTP_COOKIE</td><td style="vertical-align:top;">:</td><td><div>__utma=253767435.746049794.1419419789.1419440221.1419452427.3; __utmz=253767435.1419419789.1.1.utmcsr=(direct)|utmccn=(direct)|utmcmd=(none); wp-settings-1=libraryContent%3Dbrowse%26editor%3Dtinymce; wp-settings-time-1=1419555857; _ga=GA1.3.746049794.1419419789; session_id_admin=201.81.127.122-dd0bdcf4-4d92-48ec-ad02-19e414d69d71; session_id_twitkiller=201.81.127.122-1fc932a1-66fd-44cb-b6a8-83072fc5afc8</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">HTTP_HOST</td><td style="vertical-align:top;">:</td><td><div>www.rcsousa.com.br</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">HTTP_REFERER</td><td style="vertical-align:top;">:</td><td><div>https://www.rcsousa.com.br/twitkiller/default/index</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">HTTP_USER_AGENT</td><td style="vertical-align:top;">:</td><td><div>Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/40.0.2214.94 Safari/537.36</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">HTTP_WEB2PY_COMPONENT_ELEMENT</td><td style="vertical-align:top;">:</td><td><div>c951839506459</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">HTTP_WEB2PY_COMPONENT_LOCATION</td><td style="vertical-align:top;">:</td><td><div>https://www.rcsousa.com.br/twitkiller/default/index#</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">HTTP_X_REQUESTED_WITH</td><td style="vertical-align:top;">:</td><td><div>XMLHttpRequest</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">PATH_INFO</td><td style="vertical-align:top;">:</td><td><div>/twitkiller/default/timeline.load</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">QUERY_STRING</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">REMOTE_ADDR</td><td style="vertical-align:top;">:</td><td><div>201.81.127.122</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">REMOTE_PORT</td><td style="vertical-align:top;">:</td><td><div>63914</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">REQUEST_METHOD</td><td style="vertical-align:top;">:</td><td><div>GET</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">REQUEST_URI</td><td style="vertical-align:top;">:</td><td><div>/twitkiller/default/timeline.load</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">SERVER_NAME</td><td style="vertical-align:top;">:</td><td><div>dev-rcsousa-03.rcsousa.com.br</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">SERVER_PORT</td><td style="vertical-align:top;">:</td><td><div>443</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">SERVER_PROTOCOL</td><td style="vertical-align:top;">:</td><td><div>HTTP/1.1</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">SERVER_SOFTWARE</td><td style="vertical-align:top;">:</td><td><div>nginx/1.4.1</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">UWSGI_SCHEME</td><td style="vertical-align:top;">:</td><td><div>https</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">app_folders</td><td style="vertical-align:top;">:</td><td><div>set([&#x27;/var/www/web2py/applications/twitkiller/&#x27;])</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">applications_parent</td><td style="vertical-align:top;">:</td><td><div>/var/www/web2py</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">content_length</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">content_type</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">db_sessions</td><td style="vertical-align:top;">:</td><td><div>set([])</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">debugging</td><td style="vertical-align:top;">:</td><td><div>False</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">document_root</td><td style="vertical-align:top;">:</td><td><div>/etc/nginx/html</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">gluon_parent</td><td style="vertical-align:top;">:</td><td><div>/var/www/web2py</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">http_accept</td><td style="vertical-align:top;">:</td><td><div>*/*</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">http_accept_encoding</td><td style="vertical-align:top;">:</td><td><div>gzip, deflate, sdch</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">http_accept_language</td><td style="vertical-align:top;">:</td><td><div>en-US,en;q=0.8,pt;q=0.6,pt-BR;q=0.4</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">http_connection</td><td style="vertical-align:top;">:</td><td><div>keep-alive</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">http_cookie</td><td style="vertical-align:top;">:</td><td><div>__utma=253767435.746049794.1419419789.1419440221.1419452427.3; __utmz=253767435.1419419789.1.1.utmcsr=(direct)|utmccn=(direct)|utmcmd=(none); wp-settings-1=libraryContent%3Dbrowse%26editor%3Dtinymce; wp-settings-time-1=1419555857; _ga=GA1.3.746049794.1419419789; session_id_admin=201.81.127.122-dd0bdcf4-4d92-48ec-ad02-19e414d69d71; session_id_twitkiller=201.81.127.122-1fc932a1-66fd-44cb-b6a8-83072fc5afc8</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">http_host</td><td style="vertical-align:top;">:</td><td><div>www.rcsousa.com.br</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">http_referer</td><td style="vertical-align:top;">:</td><td><div>https://www.rcsousa.com.br/twitkiller/default/index</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">http_user_agent</td><td style="vertical-align:top;">:</td><td><div>Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/40.0.2214.94 Safari/537.36</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">http_web2py_component_element</td><td style="vertical-align:top;">:</td><td><div>c951839506459</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">http_web2py_component_location</td><td style="vertical-align:top;">:</td><td><div>https://www.rcsousa.com.br/twitkiller/default/index#</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">http_x_requested_with</td><td style="vertical-align:top;">:</td><td><div>XMLHttpRequest</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">https</td><td style="vertical-align:top;">:</td><td><div>on</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">is_jython</td><td style="vertical-align:top;">:</td><td><div>False</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">is_pypy</td><td style="vertical-align:top;">:</td><td><div>False</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">is_source</td><td style="vertical-align:top;">:</td><td><div>True</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">path_info</td><td style="vertical-align:top;">:</td><td><div>/twitkiller/default/timeline.load</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">query_string</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">remote_addr</td><td style="vertical-align:top;">:</td><td><div>201.81.127.122</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">remote_port</td><td style="vertical-align:top;">:</td><td><div>63914</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">request_method</td><td style="vertical-align:top;">:</td><td><div>GET</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">request_uri</td><td style="vertical-align:top;">:</td><td><div>/twitkiller/default/timeline.load</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">server_name</td><td style="vertical-align:top;">:</td><td><div>dev-rcsousa-03.rcsousa.com.br</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">server_port</td><td style="vertical-align:top;">:</td><td><div>443</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">server_protocol</td><td style="vertical-align:top;">:</td><td><div>HTTP/1.1</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">server_software</td><td style="vertical-align:top;">:</td><td><div>nginx/1.4.1</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">uwsgi.node</td><td style="vertical-align:top;">:</td><td><div>dev-rcsousa-03</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">uwsgi.version</td><td style="vertical-align:top;">:</td><td><div>1.9.20</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">uwsgi_node</td><td style="vertical-align:top;">:</td><td><div>dev-rcsousa-03</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">uwsgi_scheme</td><td style="vertical-align:top;">:</td><td><div>https</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">uwsgi_version</td><td style="vertical-align:top;">:</td><td><div>1.9.20</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">web2py_path</td><td style="vertical-align:top;">:</td><td><div>/var/www/web2py</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">web2py_version</td><td style="vertical-align:top;">:</td><td><div>2.9.12-stable+timestamp.2015.01.17.06.11.03</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">wsgi.errors</td><td style="vertical-align:top;">:</td><td><div>&lt;open file &#x27;wsgi_errors&#x27;, mode &#x27;w&#x27; at 0x294a930&gt;</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">wsgi.file_wrapper</td><td style="vertical-align:top;">:</td><td><div>&lt;built-in function uwsgi_sendfile&gt;</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">wsgi.input</td><td style="vertical-align:top;">:</td><td><div>&lt;uwsgi._Input object at 0x7eff904ab918&gt;</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">wsgi.multiprocess</td><td style="vertical-align:top;">:</td><td><div>True</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">wsgi.multithread</td><td style="vertical-align:top;">:</td><td><div>False</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">wsgi.run_once</td><td style="vertical-align:top;">:</td><td><div>False</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">wsgi.url_scheme</td><td style="vertical-align:top;">:</td><td><div>https</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">wsgi.version</td><td style="vertical-align:top;">:</td><td><div><table><tr><td><div>1</div></td></tr><tr><td><div>0</div></td></tr></table></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">wsgi_errors</td><td style="vertical-align:top;">:</td><td><div>&lt;open file &#x27;wsgi_errors&#x27;, mode &#x27;w&#x27; at 0x294a930&gt;</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">wsgi_file_wrapper</td><td style="vertical-align:top;">:</td><td><div>&lt;built-in function uwsgi_sendfile&gt;</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">wsgi_input</td><td style="vertical-align:top;">:</td><td><div>&lt;uwsgi._Input object at 0x7eff904ab918&gt;</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">wsgi_multiprocess</td><td style="vertical-align:top;">:</td><td><div>True</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">wsgi_multithread</td><td style="vertical-align:top;">:</td><td><div>False</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">wsgi_run_once</td><td style="vertical-align:top;">:</td><td><div>False</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">wsgi_url_scheme</td><td style="vertical-align:top;">:</td><td><div>https</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">wsgi_version</td><td style="vertical-align:top;">:</td><td><div><table><tr><td><div>1</div></td></tr><tr><td><div>0</div></td></tr></table></div></td></tr></table></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">extension</td><td style="vertical-align:top;">:</td><td><div>load</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">folder</td><td style="vertical-align:top;">:</td><td><div>/var/www/web2py/applications/twitkiller/</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">function</td><td style="vertical-align:top;">:</td><td><div>timeline</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">global_settings</td><td style="vertical-align:top;">:</td><td><div><table><tr><td style="font-weight:bold;vertical-align:top;">app_folders</td><td style="vertical-align:top;">:</td><td><div>set([&#x27;/var/www/web2py/applications/twitkiller/&#x27;])</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">applications_parent</td><td style="vertical-align:top;">:</td><td><div>/var/www/web2py</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">db_sessions</td><td style="vertical-align:top;">:</td><td><div>set([])</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">debugging</td><td style="vertical-align:top;">:</td><td><div>False</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">gluon_parent</td><td style="vertical-align:top;">:</td><td><div>/var/www/web2py</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">is_jython</td><td style="vertical-align:top;">:</td><td><div>False</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">is_pypy</td><td style="vertical-align:top;">:</td><td><div>False</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">is_source</td><td style="vertical-align:top;">:</td><td><div>True</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">local_hosts</td><td style="vertical-align:top;">:</td><td><div><table><tr><td><div>162.209.88.13</div></td></tr><tr><td><div>dev-rcsousa-03</div></td></tr><tr><td><div>10.208.146.205</div></td></tr><tr><td><div>::ffff:127.0.0.1</div></td></tr><tr><td><div>::1</div></td></tr><tr><td><div>dev-rcsousa-03.rcsousa.com.br</div></td></tr><tr><td><div>2001:4801:7821:77:8ce5:6608:ff10:afc0</div></td></tr><tr><td><div>127.0.0.1</div></td></tr></table></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">web2py_version</td><td style="vertical-align:top;">:</td><td><div>2.9.12-stable+timestamp.2015.01.17.06.11.03</div></td></tr></table></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">is_https</td><td style="vertical-align:top;">:</td><td><div>True</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">is_local</td><td style="vertical-align:top;">:</td><td><div>False</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">is_restful</td><td style="vertical-align:top;">:</td><td><div>False</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">is_sheduler</td><td style="vertical-align:top;">:</td><td><div>None</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">is_shell</td><td style="vertical-align:top;">:</td><td><div>None</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">now</td><td style="vertical-align:top;">:</td><td><div>datetime.datetime(2015, 2, 16, 4, 23, 41, 214290)</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">raw_args</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">raw_extension</td><td style="vertical-align:top;">:</td><td><div>load</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">url</td><td style="vertical-align:top;">:</td><td><div>/twitkiller/default/timeline.load</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">utcnow</td><td style="vertical-align:top;">:</td><td><div>datetime.datetime(2015, 2, 16, 4, 23, 41, 214377)</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">uuid</td><td style="vertical-align:top;">:</td><td><div>twitkiller/201.81.127.122.2015-02-16.04-23-41.320212b4-eb15-4962-b5df-9bd6658ba694</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">wsgi</td><td style="vertical-align:top;">:</td><td><div>&lt;gluon.main.LazyWSGI object at 0x2b18350&gt;</div></td></tr></table></div>'
+tRp58
+sS'frames'
+p59
+(lp60
+(dp61
+S'file'
+p62
+S'/var/www/web2py/gluon/restricted.py'
+p63
+sS'dump'
+p64
+(dp65
+S'environment'
+p66
+S"{'A': <class 'gluon.html.A'>, 'ANY_OF': <class 'gluon.validators.ANY_OF'>, 'ASSIGNJS': <function ASSIGNJS>, 'Auth': <class 'gluon.tools.Auth'>, 'B': <class 'gluon.html.B'>, 'BEAUTIFY': <class 'gluon.html.BEAUTIFY'>, 'BODY': <class 'gluon.html.BODY'>, 'BR': <class 'gluon.html.BR'>, 'BUTTON': <class 'gluon.html.BUTTON'>, 'CAT': <class 'gluon.html.CAT'>, ...}"
+p67
+sS'ccode'
+p68
+S'<code object <module> at 0x2e49dc8, file "/var/w.../twitkiller/views/default/timeline.load", line 1>'
+p69
+ssS'lnum'
+p70
+I224
+sS'lines'
+p71
+(dp72
+I224
+S'        exec ccode in environment'
+p73
+sI225
+S'    except HTTP:'
+p74
+sI226
+S'        raise'
+p75
+sI227
+S'    except RestrictedError:'
+p76
+sI228
+S'        # do not encapsulate (obfuscate) the original RestrictedError'
+p77
+sI219
+S'    try:'
+p78
+sI220
+S'        if isinstance(code, types.CodeType):'
+p79
+sI221
+S'            ccode = code'
+p80
+sI222
+S'        else:'
+p81
+sI223
+S'            ccode = compile2(code, layer)'
+p82
+ssS'call'
+p83
+S'(code="for posts in cached_posts:\\n    response.write(\'\\\\...alse)\\n    pass\\nresponse.write(\'\\\\n\', escape=False)", environment={\'A\': <class \'gluon.html.A\'>, \'ANY_OF\': <class \'gluon.validators.ANY_OF\'>, \'ASSIGNJS\': <function ASSIGNJS>, \'Auth\': <class \'gluon.tools.Auth\'>, \'B\': <class \'gluon.html.B\'>, \'BEAUTIFY\': <class \'gluon.html.BEAUTIFY\'>, \'BODY\': <class \'gluon.html.BODY\'>, \'BR\': <class \'gluon.html.BR\'>, \'BUTTON\': <class \'gluon.html.BUTTON\'>, \'CAT\': <class \'gluon.html.CAT\'>, ...}, layer=\'/var/www/web2py/applications/twitkiller/views/default/timeline.load\')'
+p84
+sS'func'
+p85
+S'restricted'
+p86
+sa(dp87
+g62
+S'/var/www/web2py/applications/twitkiller/views/default/timeline.load'
+p88
+sg64
+(dp89
+S'posts'
+p90
+S"('meu terceiro tweet', 'rcsousa@br.ibm.com')"
+p91
+sS'says'
+p92
+S'undefined'
+p93
+sS'blockquote'
+p94
+g93
+sS'SOMEBODY'
+p95
+g93
+sS'posts.cached_posts'
+p96
+g93
+ssg70
+I3
+sg71
+(dp97
+I1
+S'{{for posts in cached_posts:}}'
+p98
+sI2
+S'<div class="posts">'
+p99
+sI3
+S'  SOMEBODY says <blockquote class="post_body">{{=posts.cached_posts}}</blockquote>'
+p100
+sI4
+S'</div>'
+p101
+sI5
+S''
+sI6
+S'{{pass}}'
+p102
+ssg83
+S'()'
+p103
+sg85
+S'<module>'
+p104
+sasS'pyver'
+p105
+S'Python 2.6.6: /usr/bin/uwsgi (prefix: /usr)'
+p106
+sS'session'
+p107
+g57
+(S's\xe9\x08\x00\x00<div><table><tr><td style="font-weight:bold;vertical-align:top;">auth</td><td style="vertical-align:top;">:</td><td><div><table><tr><td style="font-weight:bold;vertical-align:top;">expiration</td><td style="vertical-align:top;">:</td><td><div>3600</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">hmac_key</td><td style="vertical-align:top;">:</td><td><div>6ce1d455-31a7-4b49-ac91-98bd46b65fc3</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">last_visit</td><td style="vertical-align:top;">:</td><td><div>datetime.datetime(2015, 2, 16, 4, 18, 8, 202788)</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">remember_me</td><td style="vertical-align:top;">:</td><td><div>False</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">user</td><td style="vertical-align:top;">:</td><td><div><table><tr><td style="font-weight:bold;vertical-align:top;">email</td><td style="vertical-align:top;">:</td><td><div>rcsousa@br.ibm.com</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">first_name</td><td style="vertical-align:top;">:</td><td><div>Ricardo</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">id</td><td style="vertical-align:top;">:</td><td><div>3L</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">last_name</td><td style="vertical-align:top;">:</td><td><div>Sousa</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">registration_id</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">registration_key</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">reset_password_key</td><td style="vertical-align:top;">:</td><td><div></div></td></tr></table></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">user_groups</td><td style="vertical-align:top;">:</td><td><div><table><tr><td style="font-weight:bold;vertical-align:top;">3</td><td style="vertical-align:top;">:</td><td><div>user_3</div></td></tr></table></div></td></tr></table></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">flash</td><td style="vertical-align:top;">:</td><td><div>None</div></td></tr></table></div>'
+tRp108
+sS'etype'
+p109
+S"<type 'exceptions.AttributeError'>"
+p110
+sS'date'
+p111
+S'Mon Feb 16 04:23:41 2015'
+p112
+sS'response'
+p113
+g57
+(S's\xee\x1d\x00\x00<div><table><tr><td style="font-weight:bold;vertical-align:top;">body</td><td style="vertical-align:top;">:</td><td><div>&lt;cStringIO.StringO object at 0x2b1a618&gt;</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">cookies</td><td style="vertical-align:top;">:</td><td><div><table><tr><td style="font-weight:bold;vertical-align:top;">session_id_twitkiller</td><td style="vertical-align:top;">:</td><td><div>201.81.127.122-1fc932a1-66fd-44cb-b6a8-83072fc5afc8<table><tr><td style="font-weight:bold;vertical-align:top;">comment</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">domain</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">expires</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">httponly</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">max-age</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">path</td><td style="vertical-align:top;">:</td><td><div>/</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">secure</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">version</td><td style="vertical-align:top;">:</td><td><div></div></td></tr></table></div></td></tr></table></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">delimiters</td><td style="vertical-align:top;">:</td><td><div><table><tr><td><div>{{</div></td></tr><tr><td><div>}}</div></td></tr></table></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">files</td><td style="vertical-align:top;">:</td><td><div><table></table></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">flash</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">form_label_separator</td><td style="vertical-align:top;">:</td><td><div>: </div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">formstyle</td><td style="vertical-align:top;">:</td><td><div>table3cols</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">generic_patterns</td><td style="vertical-align:top;">:</td><td><div><table></table></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">google_analytics_id</td><td style="vertical-align:top;">:</td><td><div>None</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">headers</td><td style="vertical-align:top;">:</td><td><div><table><tr><td style="font-weight:bold;vertical-align:top;">X-Powered-By</td><td style="vertical-align:top;">:</td><td><div>web2py</div></td></tr></table></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">logo</td><td style="vertical-align:top;">:</td><td><div><a class="brand" href="http://www.web2py.com/"><b>web<span>2</span>py</b>&trade;&nbsp;</a></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">menu</td><td style="vertical-align:top;">:</td><td><div><table><tr><td><div><table><tr><td><div>Home</div></td></tr><tr><td><div>False</div></td></tr><tr><td><div>/twitkiller/default/index.load</div></td></tr><tr><td><div><table></table></div></td></tr></table></div></td></tr><tr><td><div><table><tr><td><div>User Directory</div></td></tr><tr><td><div>False</div></td></tr><tr><td><div>/twitkiller/default/user_directory.load</div></td></tr><tr><td><div><table></table></div></td></tr></table></div></td></tr></table></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">meta</td><td style="vertical-align:top;">:</td><td><div><table><tr><td style="font-weight:bold;vertical-align:top;">author</td><td style="vertical-align:top;">:</td><td><div>Your Name &lt;you@example.com&gt;</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">generator</td><td style="vertical-align:top;">:</td><td><div>Web2py Web Framework</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">keywords</td><td style="vertical-align:top;">:</td><td><div>web2py, python, framework</div></td></tr></table></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">models_to_run</td><td style="vertical-align:top;">:</td><td><div><table><tr><td><div>^\\w+\\.py$</div></td></tr><tr><td><div>^default/\\w+\\.py$</div></td></tr><tr><td><div>^default/timeline/\\w+\\.py$</div></td></tr></table></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">postprocessing</td><td style="vertical-align:top;">:</td><td><div><table></table></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">session_client</td><td style="vertical-align:top;">:</td><td><div>201.81.127.122</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">session_cookie_compression_level</td><td style="vertical-align:top;">:</td><td><div>None</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">session_cookie_expires</td><td style="vertical-align:top;">:</td><td><div>None</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">session_cookie_key</td><td style="vertical-align:top;">:</td><td><div>None</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">session_data_name</td><td style="vertical-align:top;">:</td><td><div>session_data_twitkiller</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">session_file</td><td style="vertical-align:top;">:</td><td><div>&lt;open file &#x27;/var/www/web2py/applications/twitkiller/sessions/02b/08b/201.81.127.122-1fc932a1-66fd-44cb-b6a8-83072fc5afc8&#x27;, mode &#x27;rb+&#x27; at 0x29d1d20&gt;</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">session_filename</td><td style="vertical-align:top;">:</td><td><div>/var/www/web2py/applications/twitkiller/sessions/201.81.127.122-1fc932a1-66fd-44cb-b6a8-83072fc5afc8</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">session_hash</td><td style="vertical-align:top;">:</td><td><div>e6cfbb4e78da86cb96641589bf956a50</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">session_id</td><td style="vertical-align:top;">:</td><td><div>201.81.127.122-1fc932a1-66fd-44cb-b6a8-83072fc5afc8</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">session_id_name</td><td style="vertical-align:top;">:</td><td><div>session_id_twitkiller</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">session_locked</td><td style="vertical-align:top;">:</td><td><div>True</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">session_masterapp</td><td style="vertical-align:top;">:</td><td><div>twitkiller</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">session_new</td><td style="vertical-align:top;">:</td><td><div>False</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">session_storage_type</td><td style="vertical-align:top;">:</td><td><div>file</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">status</td><td style="vertical-align:top;">:</td><td><div>200</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">subtitle</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">title</td><td style="vertical-align:top;">:</td><td><div>Twitkiller</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">view</td><td style="vertical-align:top;">:</td><td><div>default/timeline.load</div></td></tr></table></div>'
+tRp114
+sS'locals'
+p115
+(dp116
+S'Service'
+p117
+S"<class 'gluon.tools.Service'>"
+p118
+sS'OBJECT'
+p119
+S"<class 'gluon.html.OBJECT'>"
+p120
+sS'SQLDB'
+p121
+S"<class 'gluon.dal.base.DAL'>"
+p122
+sg107
+S"<Storage {'auth': <Storage {'remember_me': False...-a5f7-4b33-9f47-54091f94c170'], '_secure': True}>"
+p123
+sS'LINK'
+p124
+S"<class 'gluon.html.LINK'>"
+p125
+sS'BR'
+p126
+S"<class 'gluon.html.BR'>"
+p127
+sS'local_import'
+p128
+S'<function <lambda>>'
+p129
+sS'OPTGROUP'
+p130
+S"<class 'gluon.html.OPTGROUP'>"
+p131
+sS'__package__'
+p132
+S'None'
+p133
+sS'PRE'
+p134
+S"<class 'gluon.html.PRE'>"
+p135
+sS'IS_INT_IN_RANGE'
+p136
+S"<class 'gluon.validators.IS_INT_IN_RANGE'>"
+p137
+sS'IS_LOWER'
+p138
+S"<class 'gluon.validators.IS_LOWER'>"
+p139
+sS'IS_STRONG'
+p140
+S"<class 'gluon.validators.IS_STRONG'>"
+p141
+sS'cache'
+p142
+S'<gluon.cache.Cache object>'
+p143
+sS'IS_IN_DB'
+p144
+S"<class 'gluon.validators.IS_IN_DB'>"
+p145
+sS'TAG'
+p146
+S'<gluon.html.__TAG__ object>'
+p147
+sS'SQLField'
+p148
+S"<class 'gluon.dal.objects.Field'>"
+p149
+sS'mail'
+p150
+S'<gluon.tools.Mail object>'
+p151
+sS'BODY'
+p152
+S"<class 'gluon.html.BODY'>"
+p153
+sS'IS_DATE_IN_RANGE'
+p154
+S"<class 'gluon.validators.IS_DATE_IN_RANGE'>"
+p155
+sS'IFRAME'
+p156
+S"<class 'gluon.html.IFRAME'>"
+p157
+sS'URL'
+p158
+S'<function URL>'
+p159
+sS'__file__'
+p160
+S"'/var/www/web2py/applications/twitkiller/views/default/timeline.load'"
+p161
+sS'db'
+p162
+S'<DAL uri="mysql:******@localhost/tweet">'
+p163
+sS'auth'
+p164
+S'<gluon.tools.Auth object>'
+p165
+sS'P'
+S"<class 'gluon.html.P'>"
+p166
+sS'TFOOT'
+p167
+S"<class 'gluon.html.TFOOT'>"
+p168
+sS'XHTML'
+p169
+S"<class 'gluon.html.XHTML'>"
+p170
+sS'ON'
+p171
+S'True'
+p172
+sS'OL'
+p173
+S"<class 'gluon.html.OL'>"
+p174
+sS'TEXTAREA'
+p175
+S"<class 'gluon.html.TEXTAREA'>"
+p176
+sS'MENU'
+p177
+S"<class 'gluon.html.MENU'>"
+p178
+sS'posts'
+p179
+S"('meu terceiro tweet', 'rcsousa@br.ibm.com')"
+p180
+sS'IS_IMAGE'
+p181
+S"<class 'gluon.validators.IS_IMAGE'>"
+p182
+sS'EM'
+p183
+S"<class 'gluon.html.EM'>"
+p184
+sS'CODE'
+p185
+S"<class 'gluon.html.CODE'>"
+p186
+sS'HTTP'
+p187
+S"<class 'gluon.http.HTTP'>"
+p188
+sS'HR'
+p189
+S"<class 'gluon.html.HR'>"
+p190
+sS'IS_DATETIME'
+p191
+S"<class 'gluon.validators.IS_DATETIME'>"
+p192
+sS'STYLE'
+p193
+S"<class 'gluon.html.STYLE'>"
+p194
+sS'LABEL'
+p195
+S"<class 'gluon.html.LABEL'>"
+p196
+sS'CLEANUP'
+p197
+S"<class 'gluon.validators.CLEANUP'>"
+p198
+sS'plugins'
+p199
+S'<gluon.tools.PluginManager object>'
+p200
+sS'SELECT'
+p201
+S"<class 'gluon.html.SELECT'>"
+p202
+sS'use_janrain'
+p203
+S'<function use_janrain>'
+p204
+sS'CENTER'
+p205
+S"<class 'gluon.html.CENTER'>"
+p206
+sS'Auth'
+p207
+S"<class 'gluon.tools.Auth'>"
+p208
+sS'__builtins__'
+p209
+S"{'ArithmeticError': <type 'exceptions.ArithmeticError'>, 'AssertionError': <type 'exceptions.AssertionError'>, 'AttributeError': <type 'exceptions.AttributeError'>, 'BaseException': <type 'exceptions.BaseException'>, 'BufferError': <type 'exceptions.BufferError'>, 'BytesWarning': <type 'exceptions.BytesWarning'>, 'DeprecationWarning': <type 'exceptions.DeprecationWarning'>, 'EOFError': <type 'exceptions.EOFError'>, 'Ellipsis': Ellipsis, 'EnvironmentError': <type 'exceptions.EnvironmentError'>, ...}"
+p210
+sS'HTML'
+p211
+S"<class 'gluon.html.HTML'>"
+p212
+sS'SQLFORM'
+p213
+S"<class 'gluon.sqlhtml.SQLFORM'>"
+p214
+sS'LOAD'
+p215
+S'<function LOAD>'
+p216
+sS'redirect'
+p217
+S'<function redirect>'
+p218
+sS'FIELDSET'
+p219
+S"<class 'gluon.html.FIELDSET'>"
+p220
+sS'IS_EQUAL_TO'
+p221
+S"<class 'gluon.validators.IS_EQUAL_TO'>"
+p222
+sS'embed64'
+p223
+S'<function embed64>'
+p224
+sS'IS_LIST_OF'
+p225
+S"<class 'gluon.validators.IS_LIST_OF'>"
+p226
+sS'INPUT'
+p227
+S"<class 'gluon.html.INPUT'>"
+p228
+sS'EMBED'
+p229
+S"<class 'gluon.html.EMBED'>"
+p230
+sS'H2'
+p231
+S"<class 'gluon.html.H2'>"
+p232
+sS'H3'
+p233
+S"<class 'gluon.html.H3'>"
+p234
+sS'BUTTON'
+p235
+S"<class 'gluon.html.BUTTON'>"
+p236
+sS'H1'
+p237
+S"<class 'gluon.html.H1'>"
+p238
+sS'H6'
+p239
+S"<class 'gluon.html.H6'>"
+p240
+sS'H4'
+p241
+S"<class 'gluon.html.H4'>"
+p242
+sS'H5'
+p243
+S"<class 'gluon.html.H5'>"
+p244
+sS'UL'
+p245
+S"<class 'gluon.html.UL'>"
+p246
+sS'IS_UPPER'
+p247
+S"<class 'gluon.validators.IS_UPPER'>"
+p248
+sS'xmlescape'
+p249
+S'<function xmlescape>'
+p250
+sS'IS_TIME'
+p251
+S"<class 'gluon.validators.IS_TIME'>"
+p252
+sS'OPTION'
+p253
+S"<class 'gluon.html.OPTION'>"
+p254
+sS'TITLE'
+p255
+S"<class 'gluon.html.TITLE'>"
+p256
+sS'CRYPT'
+p257
+S"<class 'gluon.validators.CRYPT'>"
+p258
+sS'IS_EMPTY_OR'
+p259
+S"<class 'gluon.validators.IS_EMPTY_OR'>"
+p260
+sS'MARKMIN'
+p261
+S"<class 'gluon.html.MARKMIN'>"
+p262
+sS'__name__'
+p263
+S"'__restricted__'"
+p264
+sS'STRONG'
+p265
+S"<class 'gluon.html.STRONG'>"
+p266
+sS'COL'
+p267
+S"<class 'gluon.html.COL'>"
+p268
+sS'service'
+p269
+S'<gluon.tools.Service object>'
+p270
+sS'SCRIPT'
+p271
+S"<class 'gluon.html.SCRIPT'>"
+p272
+sS'TABLE'
+p273
+S"<class 'gluon.html.TABLE'>"
+p274
+sS'IS_IPV4'
+p275
+S"<class 'gluon.validators.IS_IPV4'>"
+p276
+sS'IS_LENGTH'
+p277
+S"<class 'gluon.validators.IS_LENGTH'>"
+p278
+sS'IS_IPV6'
+p279
+S"<class 'gluon.validators.IS_IPV6'>"
+p280
+sS'XML'
+p281
+S"<class 'gluon.html.XML'>"
+p282
+sS'B'
+S"<class 'gluon.html.B'>"
+p283
+sS'IMG'
+p284
+S"<class 'gluon.html.IMG'>"
+p285
+sS'SQLTABLE'
+p286
+S"<class 'gluon.sqlhtml.SQLTABLE'>"
+p287
+sS'IS_MATCH'
+p288
+S"<class 'gluon.validators.IS_MATCH'>"
+p289
+sS'IS_ALPHANUMERIC'
+p290
+S"<class 'gluon.validators.IS_ALPHANUMERIC'>"
+p291
+sS'SPAN'
+p292
+S"<class 'gluon.html.SPAN'>"
+p293
+sS'IS_JSON'
+p294
+S"<class 'gluon.validators.IS_JSON'>"
+p295
+sS'IS_IPADDRESS'
+p296
+S"<class 'gluon.validators.IS_IPADDRESS'>"
+p297
+sS'IS_SLUG'
+p298
+S"<class 'gluon.validators.IS_SLUG'>"
+p299
+sS'BEAUTIFY'
+p300
+S"<class 'gluon.html.BEAUTIFY'>"
+p301
+sS'META'
+p302
+S"<class 'gluon.html.META'>"
+p303
+sS'cached_posts'
+p304
+S"[('meu terceiro tweet', 'rcsousa@br.ibm.com'), ('meu segundo tweet', 'rcsousa@br.ibm.com'), ('meu primeiro tweet', 'rcsousa@br.ibm.com')]"
+p305
+sS'IS_DATE'
+p306
+S"<class 'gluon.validators.IS_DATE'>"
+p307
+sS'IS_EMAIL'
+p308
+S"<class 'gluon.validators.IS_EMAIL'>"
+p309
+sS'IS_NOT_EMPTY'
+p310
+S"<class 'gluon.validators.IS_NOT_EMPTY'>"
+p311
+sS'IS_FLOAT_IN_RANGE'
+p312
+S"<class 'gluon.validators.IS_FLOAT_IN_RANGE'>"
+p313
+sS'TBODY'
+p314
+S"<class 'gluon.html.TBODY'>"
+p315
+sS'CAT'
+p316
+S"<class 'gluon.html.CAT'>"
+p317
+sS'Field'
+p318
+S"<class 'gluon.dal.objects.Field'>"
+p319
+sS'IS_LIST_OF_EMAILS'
+p320
+S"<class 'gluon.validators.IS_LIST_OF_EMAILS'>"
+p321
+sS'DIV'
+p322
+S"<class 'gluon.html.DIV'>"
+p323
+sS'LEGEND'
+p324
+S"<class 'gluon.html.LEGEND'>"
+p325
+sS'COLGROUP'
+p326
+S"<class 'gluon.html.COLGROUP'>"
+p327
+sS'DAL'
+p328
+S"<class 'gluon.dal.base.DAL'>"
+p329
+sS'ASSIGNJS'
+p330
+S'<function ASSIGNJS>'
+p331
+sS'TR'
+p332
+S"<class 'gluon.html.TR'>"
+p333
+sS'LI'
+p334
+S"<class 'gluon.html.LI'>"
+p335
+sS'TH'
+p336
+S"<class 'gluon.html.TH'>"
+p337
+sS'TD'
+p338
+S"<class 'gluon.html.TD'>"
+p339
+sS'PluginManager'
+p340
+S"<class 'gluon.tools.PluginManager'>"
+p341
+sS'IS_URL'
+p342
+S"<class 'gluon.validators.IS_URL'>"
+p343
+sS'A'
+S"<class 'gluon.html.A'>"
+p344
+sS'HEAD'
+p345
+S"<class 'gluon.html.HEAD'>"
+p346
+sS'IS_DATETIME_IN_RANGE'
+p347
+S"<class 'gluon.validators.IS_DATETIME_IN_RANGE'>"
+p348
+sS'FORM'
+p349
+S"<class 'gluon.html.FORM'>"
+p350
+sS'I'
+S"<class 'gluon.html.I'>"
+p351
+sS'IS_NOT_IN_DB'
+p352
+S"<class 'gluon.validators.IS_NOT_IN_DB'>"
+p353
+sg113
+S"<Storage {'body': <cStringIO.StringO object at 0...x7eff904b2758>, 'view': 'default/timeline.load'}>"
+p354
+sS'THEAD'
+p355
+S"<class 'gluon.html.THEAD'>"
+p356
+sS'ANY_OF'
+p357
+S"<class 'gluon.validators.ANY_OF'>"
+p358
+sS'IS_NULL_OR'
+p359
+S"<class 'gluon.validators.IS_EMPTY_OR'>"
+p360
+sg56
+S"<Storage {'_vars': None, 'function': 'timeline',...er': '/var/www/web2py/applications/twitkiller/'}>"
+p361
+sS'IS_EXPR'
+p362
+S"<class 'gluon.validators.IS_EXPR'>"
+p363
+sS'T'
+S'<gluon.languages.translator object>'
+p364
+sS'IS_IN_SET'
+p365
+S"<class 'gluon.validators.IS_IN_SET'>"
+p366
+sS'IS_UPLOAD_FILENAME'
+p367
+S"<class 'gluon.validators.IS_UPLOAD_FILENAME'>"
+p368
+sS'TT'
+p369
+S"<class 'gluon.html.TT'>"
+p370
+sS'IS_DECIMAL_IN_RANGE'
+p371
+S"<class 'gluon.validators.IS_DECIMAL_IN_RANGE'>"
+p372
+sssS'traceback'
+p373
+S'Traceback (most recent call last):\n  File "/var/www/web2py/gluon/restricted.py", line 224, in restricted\n    exec ccode in environment\n  File "/var/www/web2py/applications/twitkiller/views/default/timeline.load", line 3, in <module>\n    SOMEBODY says <blockquote class="post_body">{{=posts.cached_posts}}</blockquote>\nAttributeError: \'tuple\' object has no attribute \'cached_posts\'\n'
+p374
+s.

@@ -1,0 +1,9 @@
+{{extend 'layout.html'}}
+<div >
+    <div>
+        {{=LOAD('default','post.load',ajax=True)}}
+    </div>
+    <div>
+        {{=LOAD('default','timeline.load',ajax=True, times='infinity', timeout=60000)}}
+    </div>
+</div>

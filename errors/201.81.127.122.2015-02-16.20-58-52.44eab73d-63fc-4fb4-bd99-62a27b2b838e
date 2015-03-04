@@ -1,0 +1,778 @@
+(dp1
+S'output'
+p2
+S"<class 'elasticsearch.exceptions.NotFoundError'> TransportError(404, u'IndexMissingException[[tweet] missing]')"
+p3
+sS'layer'
+p4
+S'/var/www/web2py/applications/twitkiller/controllers/default.py'
+p5
+sS'code'
+p6
+S'# -*- coding: utf-8 -*-\n# this file is released under public domain and you can use without limitations\n\n#########################################################################\n## This is a sample controller\n## - index is the default action of any application\n## - user is required for authentication and authorization\n## - download is for downloading files uploaded in the db (does streaming)\n## - api is an example of Hypermedia API support and access control\n#########################################################################\n\ndef index():\n    """\n    example action using the internationalization operator T and flash\n    rendered by views/default/index.html or views/generic.html\n\n    if you need a simple wiki simply replace the two lines below with:\n    return auth.wiki()\n    """\n\n    return dict()\n\n@auth.requires_login()\ndef post():\n    from tweet_tasks import save_post, update_timeline, populate_index\n    import uuid\n    form=SQLFORM(db.tweet,fields=[\'post\'])\n    form.vars.tweet_id = uuid.uuid1()\n    form.vars.user_id=auth.user_id\n    form.vars.created_on=request.now\n    if form.validate(): # vai ser o insert\n        response.flash=form.vars.created_on\n        save_post.delay(form.vars.tweet_id,form.vars.user_id,form.vars.post,form.vars.created_on)\n        update_timeline.apply_async((form.vars.tweet_id,form.vars.user_id),countdown=2)\n        populate_index.apply_async((form.vars.user_id,form.vars.post,form.vars.created_on),countdown=5)\n\n    return dict(form=form)\n\n@auth.requires_login()\ndef timeline():\n    import memcache, redis\n    rd=redis.Redis(\'localhost\')\n    mc = memcache.Client([\'localhost:11211\'], debug=1)\n    posts=rd.lrange(\'%s\' %auth.user_id, \'0\', \'-1\')\n    cached_posts = []\n    post_uid = []\n    post_created_on = []\n    for p in posts:\n        cached_posts.append(mc.get(\'%s\' %p.split(\';\')[0]))\n        post_uid.append(p.split(\';\')[1])\n        post_created_on.append(p.split(\';\')[2])\n    return dict(cached_posts=zip(cached_posts,post_uid,post_created_on))\n\n@auth.requires_login()\ndef timeline():\n    from elasticsearch import Elasticsearch\n    es = Elasticsearch()\n    res = es.search(index="tweet", body={"query": {"match_all": {}}})\n    print("Got %d Hits:" % res[\'hits\'][\'total\'])\n    for hit in res[\'hits\'][\'hits\']:\n        print("%(timestamp)s %(author)s: %(text)s" % hit["_source"])\n\n\n@auth.requires_login()\ndef user_directory():\n    import memcache\n    users=db(db.auth_user.id!=auth.user_id).select()\n    mc = memcache.Client([\'localhost:11211\'], debug=1)\n    following=mc.get(\'following_%s\' %auth.user_id)\n    if not following:\n        following=[f.following for f in db(db.follow.follower==auth.user_id).select(db.follow.following)]\n        mc.set(\'following_%s\' %auth.user_id, following)\n    return dict(users=users,following=following)\n\n@auth.requires_login()\ndef follow():\n    from tweet_tasks import do_follow\n    user_id=request.args(0)\n    do_follow.delay(int(auth.user_id),int(user_id))\n    return\n\n@auth.requires_login()\ndef unfollow():\n    from tweet_tasks import do_unfollow\n    user_id=request.args(0)\n    do_unfollow.delay(int(auth.user_id),int(user_id))\n    return\n\ndef user():\n    """\n    exposes:\n    http://..../[app]/default/user/login\n    http://..../[app]/default/user/logout\n    http://..../[app]/default/user/register\n    http://..../[app]/default/user/profile\n    http://..../[app]/default/user/retrieve_password\n    http://..../[app]/default/user/change_password\n    http://..../[app]/default/user/manage_users (requires membership in\n    use @auth.requires_login()\n        @auth.requires_membership(\'group name\')\n        @auth.requires_permission(\'read\',\'table name\',record_id)\n    to decorate functions that need access control\n    """\n    return dict(form=auth())\n\n\n@cache.action()\ndef download():\n    """\n    allows downloading of uploaded files\n    http://..../[app]/default/download/[filename]\n    """\n    return response.download(request, db)\n\n\ndef call():\n    """\n    exposes services. for example:\n    http://..../[app]/default/call/jsonrpc\n    decorate with @services.jsonrpc the functions to expose\n    supports xml, json, xmlrpc, jsonrpc, amfrpc, rss, csv\n    """\n    return service()\n\n\n@auth.requires_login() \ndef api():\n    """\n    this is example of API with access control\n    WEB2PY provides Hypermedia API (Collection+JSON) Experimental\n    """\n    from gluon.contrib.hypermedia import Collection\n    rules = {\n        \'<tablename>\': {\'GET\':{},\'POST\':{},\'PUT\':{},\'DELETE\':{}},\n        }\n    return Collection(db).process(request,response,rules)\n\nresponse._vars=response._caller(timeline)\n'
+p7
+sS'snapshot'
+p8
+(dp9
+S'exception'
+p10
+(dp11
+S'__module__'
+p12
+S"'elasticsearch.exceptions'"
+p13
+sS'__getslice__'
+p14
+S"<method-wrapper '__getslice__' of NotFoundError object>"
+p15
+sS'status_code'
+p16
+S'404'
+p17
+sS'__str__'
+p18
+S"<bound method NotFoundError.__str__ of NotFoundE...or': u'IndexMissingException[[tweet] missing]'})>"
+p19
+sS'__reduce__'
+p20
+S'<built-in method __reduce__ of NotFoundError object>'
+p21
+sS'__dict__'
+p22
+S'{}'
+p23
+sS'__sizeof__'
+p24
+S'<built-in method __sizeof__ of NotFoundError object>'
+p25
+sS'__weakref__'
+p26
+S'None'
+p27
+sS'__init__'
+p28
+S"<method-wrapper '__init__' of NotFoundError object>"
+p29
+sS'__setattr__'
+p30
+S"<method-wrapper '__setattr__' of NotFoundError object>"
+p31
+sS'__reduce_ex__'
+p32
+S'<built-in method __reduce_ex__ of NotFoundError object>'
+p33
+sS'__new__'
+p34
+S'<built-in method __new__ of type object>'
+p35
+sS'__format__'
+p36
+S'<built-in method __format__ of NotFoundError object>'
+p37
+sS'__class__'
+p38
+S"<class 'elasticsearch.exceptions.NotFoundError'>"
+p39
+sS'__doc__'
+p40
+S'None'
+p41
+sS'__getitem__'
+p42
+S"<method-wrapper '__getitem__' of NotFoundError object>"
+p43
+sS'__setstate__'
+p44
+S'<built-in method __setstate__ of NotFoundError object>'
+p45
+sS'__getattribute__'
+p46
+S"<method-wrapper '__getattribute__' of NotFoundError object>"
+p47
+sS'args'
+p48
+S"(404, u'IndexMissingException[[tweet] missing]', {u'error': u'IndexMissingException[[tweet] missing]', u'status': 404})"
+p49
+sS'__subclasshook__'
+p50
+S'<built-in method __subclasshook__ of type object>'
+p51
+sS'__unicode__'
+p52
+S'<built-in method __unicode__ of NotFoundError object>'
+p53
+sS'info'
+p54
+S"{u'error': u'IndexMissingException[[tweet] missing]', u'status': 404}"
+p55
+sS'__delattr__'
+p56
+S"<method-wrapper '__delattr__' of NotFoundError object>"
+p57
+sS'__repr__'
+p58
+S"<method-wrapper '__repr__' of NotFoundError object>"
+p59
+sS'error'
+p60
+S"u'IndexMissingException[[tweet] missing]'"
+p61
+sS'__hash__'
+p62
+S"<method-wrapper '__hash__' of NotFoundError object>"
+p63
+ssS'evalue'
+p64
+S"TransportError(404, u'IndexMissingException[[tweet] missing]')"
+p65
+sS'request'
+p66
+cgluon.html
+XML_unpickle
+p67
+(S's\ni\x00\x00<div><table><tr><td style="font-weight:bold;vertical-align:top;">ajax</td><td style="vertical-align:top;">:</td><td><div>True</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">application</td><td style="vertical-align:top;">:</td><td><div>twitkiller</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">args</td><td style="vertical-align:top;">:</td><td><div><table></table></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">cid</td><td style="vertical-align:top;">:</td><td><div>c453949894327</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">client</td><td style="vertical-align:top;">:</td><td><div>201.81.127.122</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">controller</td><td style="vertical-align:top;">:</td><td><div>default</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">cookies</td><td style="vertical-align:top;">:</td><td><div><table><tr><td style="font-weight:bold;vertical-align:top;">auth</td><td style="vertical-align:top;">:</td><td><div>cmNzb3VzYTpiQG1iQG0zMDc3<table><tr><td style="font-weight:bold;vertical-align:top;">comment</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">domain</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">expires</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">httponly</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">max-age</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">path</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">secure</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">version</td><td style="vertical-align:top;">:</td><td><div></div></td></tr></table></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">m</td><td style="vertical-align:top;">:</td><td><div>34e2:|66d7:0%2C0<table><tr><td style="font-weight:bold;vertical-align:top;">comment</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">domain</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">expires</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">httponly</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">max-age</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">path</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">secure</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">version</td><td style="vertical-align:top;">:</td><td><div></div></td></tr></table></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">session_id_admin</td><td style="vertical-align:top;">:</td><td><div>201.81.127.122-dd0bdcf4-4d92-48ec-ad02-19e414d69d71<table><tr><td style="font-weight:bold;vertical-align:top;">comment</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">domain</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">expires</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">httponly</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">max-age</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">path</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">secure</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">version</td><td style="vertical-align:top;">:</td><td><div></div></td></tr></table></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">session_id_twitkiller</td><td style="vertical-align:top;">:</td><td><div>201.81.127.122-3ab74aa9-b1c1-4e8f-83f1-7761e24c7e61<table><tr><td style="font-weight:bold;vertical-align:top;">comment</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">domain</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">expires</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">httponly</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">max-age</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">path</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">secure</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">version</td><td style="vertical-align:top;">:</td><td><div></div></td></tr></table></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">wp-settings-1</td><td style="vertical-align:top;">:</td><td><div>libraryContent%3Dbrowse%26editor%3Dtinymce<table><tr><td style="font-weight:bold;vertical-align:top;">comment</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">domain</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">expires</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">httponly</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">max-age</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">path</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">secure</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">version</td><td style="vertical-align:top;">:</td><td><div></div></td></tr></table></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">wp-settings-time-1</td><td style="vertical-align:top;">:</td><td><div>1419555857<table><tr><td style="font-weight:bold;vertical-align:top;">comment</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">domain</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">expires</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">httponly</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">max-age</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">path</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">secure</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">version</td><td style="vertical-align:top;">:</td><td><div></div></td></tr></table></div></td></tr></table></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">env</td><td style="vertical-align:top;">:</td><td><div><table><tr><td style="font-weight:bold;vertical-align:top;">CONTENT_LENGTH</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">CONTENT_TYPE</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">DOCUMENT_ROOT</td><td style="vertical-align:top;">:</td><td><div>/etc/nginx/html</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">HTTPS</td><td style="vertical-align:top;">:</td><td><div>on</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">HTTP_ACCEPT</td><td style="vertical-align:top;">:</td><td><div>*/*</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">HTTP_ACCEPT_ENCODING</td><td style="vertical-align:top;">:</td><td><div>gzip, deflate, sdch</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">HTTP_ACCEPT_LANGUAGE</td><td style="vertical-align:top;">:</td><td><div>en-US,en;q=0.8,pt;q=0.6,pt-BR;q=0.4</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">HTTP_CONNECTION</td><td style="vertical-align:top;">:</td><td><div>keep-alive</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">HTTP_COOKIE</td><td style="vertical-align:top;">:</td><td><div>__utma=253767435.746049794.1419419789.1419440221.1419452427.3; __utmz=253767435.1419419789.1.1.utmcsr=(direct)|utmccn=(direct)|utmcmd=(none); wp-settings-1=libraryContent%3Dbrowse%26editor%3Dtinymce; wp-settings-time-1=1419555857; _ga=GA1.3.746049794.1419419789; auth=cmNzb3VzYTpiQG1iQG0zMDc3; m=34e2:|66d7:0%2C0; session_id_twitkiller=201.81.127.122-3ab74aa9-b1c1-4e8f-83f1-7761e24c7e61; session_id_admin=201.81.127.122-dd0bdcf4-4d92-48ec-ad02-19e414d69d71</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">HTTP_HOST</td><td style="vertical-align:top;">:</td><td><div>www.rcsousa.com.br</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">HTTP_REFERER</td><td style="vertical-align:top;">:</td><td><div>https://www.rcsousa.com.br/twitkiller/default/index</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">HTTP_USER_AGENT</td><td style="vertical-align:top;">:</td><td><div>Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/40.0.2214.94 Safari/537.36</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">HTTP_WEB2PY_COMPONENT_ELEMENT</td><td style="vertical-align:top;">:</td><td><div>c453949894327</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">HTTP_WEB2PY_COMPONENT_LOCATION</td><td style="vertical-align:top;">:</td><td><div>https://www.rcsousa.com.br/twitkiller/default/index#</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">HTTP_X_REQUESTED_WITH</td><td style="vertical-align:top;">:</td><td><div>XMLHttpRequest</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">PATH_INFO</td><td style="vertical-align:top;">:</td><td><div>/twitkiller/default/timeline.load</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">QUERY_STRING</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">REMOTE_ADDR</td><td style="vertical-align:top;">:</td><td><div>201.81.127.122</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">REMOTE_PORT</td><td style="vertical-align:top;">:</td><td><div>52779</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">REQUEST_METHOD</td><td style="vertical-align:top;">:</td><td><div>GET</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">REQUEST_URI</td><td style="vertical-align:top;">:</td><td><div>/twitkiller/default/timeline.load</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">SERVER_NAME</td><td style="vertical-align:top;">:</td><td><div>dev-rcsousa-03.rcsousa.com.br</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">SERVER_PORT</td><td style="vertical-align:top;">:</td><td><div>443</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">SERVER_PROTOCOL</td><td style="vertical-align:top;">:</td><td><div>HTTP/1.1</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">SERVER_SOFTWARE</td><td style="vertical-align:top;">:</td><td><div>nginx/1.4.1</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">UWSGI_SCHEME</td><td style="vertical-align:top;">:</td><td><div>https</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">app_folders</td><td style="vertical-align:top;">:</td><td><div>set([&#x27;/var/www/web2py/applications/admin/&#x27;, &#x27;/var/www/web2py/applications/twitkiller/&#x27;])</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">applications_parent</td><td style="vertical-align:top;">:</td><td><div>/var/www/web2py</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">content_length</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">content_type</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">db_sessions</td><td style="vertical-align:top;">:</td><td><div>set([])</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">debugging</td><td style="vertical-align:top;">:</td><td><div>False</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">document_root</td><td style="vertical-align:top;">:</td><td><div>/etc/nginx/html</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">gluon_parent</td><td style="vertical-align:top;">:</td><td><div>/var/www/web2py</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">http_accept</td><td style="vertical-align:top;">:</td><td><div>*/*</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">http_accept_encoding</td><td style="vertical-align:top;">:</td><td><div>gzip, deflate, sdch</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">http_accept_language</td><td style="vertical-align:top;">:</td><td><div>en-US,en;q=0.8,pt;q=0.6,pt-BR;q=0.4</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">http_connection</td><td style="vertical-align:top;">:</td><td><div>keep-alive</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">http_cookie</td><td style="vertical-align:top;">:</td><td><div>__utma=253767435.746049794.1419419789.1419440221.1419452427.3; __utmz=253767435.1419419789.1.1.utmcsr=(direct)|utmccn=(direct)|utmcmd=(none); wp-settings-1=libraryContent%3Dbrowse%26editor%3Dtinymce; wp-settings-time-1=1419555857; _ga=GA1.3.746049794.1419419789; auth=cmNzb3VzYTpiQG1iQG0zMDc3; m=34e2:|66d7:0%2C0; session_id_twitkiller=201.81.127.122-3ab74aa9-b1c1-4e8f-83f1-7761e24c7e61; session_id_admin=201.81.127.122-dd0bdcf4-4d92-48ec-ad02-19e414d69d71</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">http_host</td><td style="vertical-align:top;">:</td><td><div>www.rcsousa.com.br</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">http_referer</td><td style="vertical-align:top;">:</td><td><div>https://www.rcsousa.com.br/twitkiller/default/index</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">http_user_agent</td><td style="vertical-align:top;">:</td><td><div>Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/40.0.2214.94 Safari/537.36</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">http_web2py_component_element</td><td style="vertical-align:top;">:</td><td><div>c453949894327</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">http_web2py_component_location</td><td style="vertical-align:top;">:</td><td><div>https://www.rcsousa.com.br/twitkiller/default/index#</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">http_x_requested_with</td><td style="vertical-align:top;">:</td><td><div>XMLHttpRequest</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">https</td><td style="vertical-align:top;">:</td><td><div>on</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">is_jython</td><td style="vertical-align:top;">:</td><td><div>False</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">is_pypy</td><td style="vertical-align:top;">:</td><td><div>False</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">is_source</td><td style="vertical-align:top;">:</td><td><div>True</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">local_hosts</td><td style="vertical-align:top;">:</td><td><div><table><tr><td><div>162.209.88.13</div></td></tr><tr><td><div>dev-rcsousa-03</div></td></tr><tr><td><div>10.208.146.205</div></td></tr><tr><td><div>::ffff:127.0.0.1</div></td></tr><tr><td><div>::1</div></td></tr><tr><td><div>dev-rcsousa-03.rcsousa.com.br</div></td></tr><tr><td><div>2001:4801:7821:77:8ce5:6608:ff10:afc0</div></td></tr><tr><td><div>127.0.0.1</div></td></tr></table></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">path_info</td><td style="vertical-align:top;">:</td><td><div>/twitkiller/default/timeline.load</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">query_string</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">remote_addr</td><td style="vertical-align:top;">:</td><td><div>201.81.127.122</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">remote_port</td><td style="vertical-align:top;">:</td><td><div>52779</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">request_method</td><td style="vertical-align:top;">:</td><td><div>GET</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">request_uri</td><td style="vertical-align:top;">:</td><td><div>/twitkiller/default/timeline.load</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">server_name</td><td style="vertical-align:top;">:</td><td><div>dev-rcsousa-03.rcsousa.com.br</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">server_port</td><td style="vertical-align:top;">:</td><td><div>443</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">server_protocol</td><td style="vertical-align:top;">:</td><td><div>HTTP/1.1</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">server_software</td><td style="vertical-align:top;">:</td><td><div>nginx/1.4.1</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">uwsgi.node</td><td style="vertical-align:top;">:</td><td><div>dev-rcsousa-03</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">uwsgi.version</td><td style="vertical-align:top;">:</td><td><div>1.9.20</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">uwsgi_node</td><td style="vertical-align:top;">:</td><td><div>dev-rcsousa-03</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">uwsgi_scheme</td><td style="vertical-align:top;">:</td><td><div>https</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">uwsgi_version</td><td style="vertical-align:top;">:</td><td><div>1.9.20</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">web2py_path</td><td style="vertical-align:top;">:</td><td><div>/var/www/web2py</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">web2py_version</td><td style="vertical-align:top;">:</td><td><div>2.9.12-stable+timestamp.2015.01.17.06.11.03</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">wsgi.errors</td><td style="vertical-align:top;">:</td><td><div>&lt;open file &#x27;wsgi_errors&#x27;, mode &#x27;w&#x27; at 0x294a930&gt;</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">wsgi.file_wrapper</td><td style="vertical-align:top;">:</td><td><div>&lt;built-in function uwsgi_sendfile&gt;</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">wsgi.input</td><td style="vertical-align:top;">:</td><td><div>&lt;uwsgi._Input object at 0x7eff904abdf8&gt;</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">wsgi.multiprocess</td><td style="vertical-align:top;">:</td><td><div>True</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">wsgi.multithread</td><td style="vertical-align:top;">:</td><td><div>False</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">wsgi.run_once</td><td style="vertical-align:top;">:</td><td><div>False</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">wsgi.url_scheme</td><td style="vertical-align:top;">:</td><td><div>https</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">wsgi.version</td><td style="vertical-align:top;">:</td><td><div><table><tr><td><div>1</div></td></tr><tr><td><div>0</div></td></tr></table></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">wsgi_errors</td><td style="vertical-align:top;">:</td><td><div>&lt;open file &#x27;wsgi_errors&#x27;, mode &#x27;w&#x27; at 0x294a930&gt;</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">wsgi_file_wrapper</td><td style="vertical-align:top;">:</td><td><div>&lt;built-in function uwsgi_sendfile&gt;</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">wsgi_input</td><td style="vertical-align:top;">:</td><td><div>&lt;uwsgi._Input object at 0x7eff904abdf8&gt;</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">wsgi_multiprocess</td><td style="vertical-align:top;">:</td><td><div>True</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">wsgi_multithread</td><td style="vertical-align:top;">:</td><td><div>False</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">wsgi_run_once</td><td style="vertical-align:top;">:</td><td><div>False</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">wsgi_url_scheme</td><td style="vertical-align:top;">:</td><td><div>https</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">wsgi_version</td><td style="vertical-align:top;">:</td><td><div><table><tr><td><div>1</div></td></tr><tr><td><div>0</div></td></tr></table></div></td></tr></table></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">extension</td><td style="vertical-align:top;">:</td><td><div>load</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">folder</td><td style="vertical-align:top;">:</td><td><div>/var/www/web2py/applications/twitkiller/</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">function</td><td style="vertical-align:top;">:</td><td><div>timeline</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">global_settings</td><td style="vertical-align:top;">:</td><td><div><table><tr><td style="font-weight:bold;vertical-align:top;">app_folders</td><td style="vertical-align:top;">:</td><td><div>set([&#x27;/var/www/web2py/applications/admin/&#x27;, &#x27;/var/www/web2py/applications/twitkiller/&#x27;])</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">applications_parent</td><td style="vertical-align:top;">:</td><td><div>/var/www/web2py</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">db_sessions</td><td style="vertical-align:top;">:</td><td><div>set([])</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">debugging</td><td style="vertical-align:top;">:</td><td><div>False</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">gluon_parent</td><td style="vertical-align:top;">:</td><td><div>/var/www/web2py</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">is_jython</td><td style="vertical-align:top;">:</td><td><div>False</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">is_pypy</td><td style="vertical-align:top;">:</td><td><div>False</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">is_source</td><td style="vertical-align:top;">:</td><td><div>True</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">local_hosts</td><td style="vertical-align:top;">:</td><td><div><table><tr><td><div>162.209.88.13</div></td></tr><tr><td><div>dev-rcsousa-03</div></td></tr><tr><td><div>10.208.146.205</div></td></tr><tr><td><div>::ffff:127.0.0.1</div></td></tr><tr><td><div>::1</div></td></tr><tr><td><div>dev-rcsousa-03.rcsousa.com.br</div></td></tr><tr><td><div>2001:4801:7821:77:8ce5:6608:ff10:afc0</div></td></tr><tr><td><div>127.0.0.1</div></td></tr></table></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">web2py_version</td><td style="vertical-align:top;">:</td><td><div>2.9.12-stable+timestamp.2015.01.17.06.11.03</div></td></tr></table></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">is_https</td><td style="vertical-align:top;">:</td><td><div>True</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">is_local</td><td style="vertical-align:top;">:</td><td><div>False</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">is_restful</td><td style="vertical-align:top;">:</td><td><div>False</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">is_sheduler</td><td style="vertical-align:top;">:</td><td><div>None</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">is_shell</td><td style="vertical-align:top;">:</td><td><div>None</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">now</td><td style="vertical-align:top;">:</td><td><div>datetime.datetime(2015, 2, 16, 20, 58, 52, 713891)</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">raw_args</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">raw_extension</td><td style="vertical-align:top;">:</td><td><div>load</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">url</td><td style="vertical-align:top;">:</td><td><div>/twitkiller/default/timeline.load</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">utcnow</td><td style="vertical-align:top;">:</td><td><div>datetime.datetime(2015, 2, 16, 20, 58, 52, 713914)</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">uuid</td><td style="vertical-align:top;">:</td><td><div>twitkiller/201.81.127.122.2015-02-16.20-58-52.44eab73d-63fc-4fb4-bd99-62a27b2b838e</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">wsgi</td><td style="vertical-align:top;">:</td><td><div>&lt;gluon.main.LazyWSGI object at 0x32e5190&gt;</div></td></tr></table></div>'
+tRp68
+sS'frames'
+p69
+(lp70
+(dp71
+S'file'
+p72
+S'/var/www/web2py/gluon/restricted.py'
+p73
+sS'dump'
+p74
+(dp75
+S'environment'
+p76
+S"{'A': <class 'gluon.html.A'>, 'ANY_OF': <class 'gluon.validators.ANY_OF'>, 'ASSIGNJS': <function ASSIGNJS>, 'Auth': <class 'gluon.tools.Auth'>, 'B': <class 'gluon.html.B'>, 'BEAUTIFY': <class 'gluon.html.BEAUTIFY'>, 'BODY': <class 'gluon.html.BODY'>, 'BR': <class 'gluon.html.BR'>, 'BUTTON': <class 'gluon.html.BUTTON'>, 'CAT': <class 'gluon.html.CAT'>, ...}"
+p77
+sS'ccode'
+p78
+S'<code object <module> at 0x2ed3eb8, file "/var/w...ions/twitkiller/controllers/default.py", line 12>'
+p79
+ssS'lnum'
+p80
+I224
+sS'lines'
+p81
+(dp82
+I224
+S'        exec ccode in environment'
+p83
+sI225
+S'    except HTTP:'
+p84
+sI226
+S'        raise'
+p85
+sI227
+S'    except RestrictedError:'
+p86
+sI228
+S'        # do not encapsulate (obfuscate) the original RestrictedError'
+p87
+sI219
+S'    try:'
+p88
+sI220
+S'        if isinstance(code, types.CodeType):'
+p89
+sI221
+S'            ccode = code'
+p90
+sI222
+S'        else:'
+p91
+sI223
+S'            ccode = compile2(code, layer)'
+p92
+ssS'call'
+p93
+S"(code='# -*- coding: utf-8 -*-\\n# this file is released ...ules)\\n\\nresponse._vars=response._caller(timeline)\\n', environment={'A': <class 'gluon.html.A'>, 'ANY_OF': <class 'gluon.validators.ANY_OF'>, 'ASSIGNJS': <function ASSIGNJS>, 'Auth': <class 'gluon.tools.Auth'>, 'B': <class 'gluon.html.B'>, 'BEAUTIFY': <class 'gluon.html.BEAUTIFY'>, 'BODY': <class 'gluon.html.BODY'>, 'BR': <class 'gluon.html.BR'>, 'BUTTON': <class 'gluon.html.BUTTON'>, 'CAT': <class 'gluon.html.CAT'>, ...}, layer='/var/www/web2py/applications/twitkiller/controllers/default.py')"
+p94
+sS'func'
+p95
+S'restricted'
+p96
+sa(dp97
+g72
+S'/var/www/web2py/applications/twitkiller/controllers/default.py'
+p98
+sg74
+(dp99
+sg80
+I138
+sg81
+(dp100
+I128
+S'    """'
+p101
+sI129
+S'    this is example of API with access control'
+p102
+sI130
+S'    WEB2PY provides Hypermedia API (Collection+JSON) Experimental'
+p103
+sI131
+S'    """'
+p104
+sI132
+S'    from gluon.contrib.hypermedia import Collection'
+p105
+sI133
+S'    rules = {'
+p106
+sI134
+S"        '<tablename>': {'GET':{},'POST':{},'PUT':{},'DELETE':{}},"
+p107
+sI135
+S'        }'
+p108
+sI136
+S'    return Collection(db).process(request,response,rules)'
+p109
+sI127
+S'def api():'
+p110
+ssg93
+S'()'
+p111
+sg95
+S'<module>'
+p112
+sa(dp113
+g72
+S'/var/www/web2py/gluon/globals.py'
+p114
+sg74
+(dp115
+S'self'
+p116
+S'undefined'
+p117
+sS'f'
+S'<function timeline>'
+p118
+ssg80
+I393
+sg81
+(dp119
+I388
+S"        self.flash = ''            # used by the default view layout"
+p120
+sI389
+S'        self.meta = Storage()      # used by web2py_ajax.html'
+p121
+sI390
+S'        self.menu = []             # used by the default view layout'
+p122
+sI391
+S'        self.files = []            # used by web2py_ajax.html'
+p123
+sI392
+S'        self._vars = None'
+p124
+sI393
+S'        self._caller = lambda f: f()'
+p125
+sI394
+S'        self._view_environment = None'
+p126
+sI395
+S'        self._custom_commit = None'
+p127
+sI396
+S'        self._custom_rollback = None'
+p128
+sI397
+S"        self.generic_patterns = ['*']"
+p129
+ssg93
+S'(f=<function timeline>)'
+p130
+sg95
+S'<lambda>'
+p131
+sa(dp132
+g72
+S'/var/www/web2py/gluon/tools.py'
+p133
+sg74
+(dp134
+S'action'
+p135
+S'<function timeline>'
+p136
+sS'a'
+S'()'
+p137
+sS'b'
+g23
+ssg80
+I3444
+sg81
+(dp138
+I3439
+S'                    flag = condition'
+p139
+sI3440
+S'                if not flag:'
+p140
+sI3441
+S'                    current.session.flash = self.messages.access_denied'
+p141
+sI3442
+S'                    return call_or_redirect('
+p142
+sI3443
+S'                        self.settings.on_failed_authorization)'
+p143
+sI3444
+S'                return action(*a, **b)'
+p144
+sI3445
+S'            f.__doc__ = action.__doc__'
+p145
+sI3446
+S'            f.__name__ = action.__name__'
+p146
+sI3447
+S'            f.__dict__.update(action.__dict__)'
+p147
+sI3448
+S'            return f'
+p148
+ssg93
+S'(*a=(), **b={})'
+p149
+sg95
+S'f'
+sa(dp150
+g72
+S'/var/www/web2py/applications/twitkiller/controllers/default.py'
+p151
+sg74
+(dp152
+S'body'
+p153
+g117
+sS'res'
+p154
+g117
+sS'es.search'
+p155
+S'<bound method Elasticsearch.search of <Elasticsearch([{}])>>'
+p156
+sS'global index'
+p157
+S'<function index>'
+p158
+sS'es'
+p159
+S'<Elasticsearch([{}])>'
+p160
+ssg80
+I58
+sg81
+(dp161
+I53
+S''
+sI54
+S'@auth.requires_login()'
+p162
+sI55
+S'def timeline():'
+p163
+sI56
+S'    from elasticsearch import Elasticsearch'
+p164
+sI57
+S'    es = Elasticsearch()'
+p165
+sI58
+S'    res = es.search(index="tweet", body={"query": {"match_all": {}}})'
+p166
+sI59
+S'    print("Got %d Hits:" % res[\'hits\'][\'total\'])'
+p167
+sI60
+S"    for hit in res['hits']['hits']:"
+p168
+sI61
+S'        print("%(timestamp)s %(author)s: %(text)s" % hit["_source"])'
+p169
+sI62
+S''
+ssg93
+S'()'
+p170
+sg95
+S'timeline'
+p171
+sa(dp172
+g72
+S'/usr/lib/python2.6/site-packages/elasticsearch/client/utils.py'
+p173
+sg74
+(dp174
+S'args'
+p175
+S'(<Elasticsearch([{}])>,)'
+p176
+sS'params'
+p177
+g23
+sS'func'
+p178
+S'<function search>'
+p179
+sS'kwargs'
+p180
+S"{'body': {'query': {'match_all': {}}}, 'index': 'tweet'}"
+p181
+ssg80
+I70
+sg81
+(dp182
+I65
+S'                    params[p] = _escape(kwargs.pop(p))'
+p183
+sI66
+S''
+sI67
+S"            # don't treat ignore as other params to avoid escaping"
+p184
+sI68
+S"            if 'ignore' in kwargs:"
+p185
+sI69
+S"                params['ignore'] = kwargs.pop('ignore')"
+p186
+sI70
+S'            return func(*args, params=params, **kwargs)'
+p187
+sI71
+S'        return _wrapped'
+p188
+sI72
+S'    return _wrapper'
+p189
+sI73
+S''
+sI74
+S''
+ssg93
+S"(*args=(<Elasticsearch([{}])>,), **kwargs={'body': {'query': {'match_all': {}}}, 'index': 'tweet'})"
+p190
+sg95
+S'_wrapped'
+p191
+sa(dp192
+g72
+S'/usr/lib/python2.6/site-packages/elasticsearch/client/__init__.py'
+p193
+sg74
+(dp194
+S'body'
+p195
+S"{'query': {'match_all': {}}}"
+p196
+sS'params'
+p197
+g23
+ssg80
+I429
+sg81
+(dp198
+I424
+S"            params['from'] = params.pop('from_')"
+p199
+sI425
+S''
+sI426
+S'        if doc_type and not index:'
+p200
+sI427
+S"            index = '_all'"
+p201
+sI428
+S"        _, data = self.transport.perform_request('GET', _make_path(index, doc_type, '_search'),"
+p202
+sI429
+S'            params=params, body=body)'
+p203
+sI430
+S'        return data'
+p204
+sI431
+S''
+sI432
+S"    @query_params('_source', '_source_exclude', '_source_include',"
+p205
+sI433
+S"        'analyze_wildcard', 'analyzer', 'default_operator', 'df', 'fields',"
+p206
+ssg93
+S"(self=<Elasticsearch([{}])>, index='tweet', doc_type=None, body={'query': {'match_all': {}}}, params={})"
+p207
+sg95
+S'search'
+p208
+sa(dp209
+g72
+S'/usr/lib/python2.6/site-packages/elasticsearch/transport.py'
+p210
+sg74
+(dp211
+S'status'
+p212
+g117
+sS'body'
+p213
+S'\'{"query": {"match_all": {}}}\''
+p214
+sS'url'
+p215
+S"'/tweet/_search'"
+p216
+sS'method'
+p217
+S"'GET'"
+p218
+sS'ignore'
+p219
+S'()'
+p220
+sS'headers'
+p221
+g117
+sS'connection'
+p222
+S'<Urllib3HttpConnection: http://localhost:9200>'
+p223
+sS'params'
+p224
+g23
+sS'data'
+p225
+g117
+sS'connection.perform_request'
+p226
+S'<bound method Urllib3HttpConnection.perform_requ...f <Urllib3HttpConnection: http://localhost:9200>>'
+p227
+ssg80
+I274
+sg81
+(dp228
+I269
+S''
+sI270
+S'        for attempt in range(self.max_retries + 1):'
+p229
+sI271
+S'            connection = self.get_connection()'
+p230
+sI272
+S''
+sI273
+S'            try:'
+p231
+sI274
+S'                status, headers, data = connection.perform_request(method, url, params, body, ignore=ignore)'
+p232
+sI275
+S'            except ConnectionError:'
+p233
+sI276
+S'                self.mark_dead(connection)'
+p234
+sI277
+S''
+sI278
+S'                # raise exception on last retry'
+p235
+ssg93
+S'(self=<elasticsearch.transport.Transport object>, method=\'GET\', url=\'/tweet/_search\', params={}, body=\'{"query": {"match_all": {}}}\')'
+p236
+sg95
+S'perform_request'
+p237
+sa(dp238
+g72
+S'/usr/lib/python2.6/site-packages/elasticsearch/connection/http_urllib3.py'
+p239
+sg74
+(dp240
+S'response.status'
+p241
+S'404'
+p242
+sS'raw_data'
+p243
+S'u\'{"error":"IndexMissingException[[tweet] missing]","status":404}\''
+p244
+sS'self'
+p245
+S'<Urllib3HttpConnection: http://localhost:9200>'
+p246
+sS'self._raise_error'
+p247
+S'<bound method Urllib3HttpConnection._raise_error of <Urllib3HttpConnection: http://localhost:9200>>'
+p248
+sS'response'
+p249
+S'<urllib3.response.HTTPResponse object>'
+p250
+ssg80
+I55
+sg81
+(dp251
+I50
+S'            self.log_request_fail(method, full_url, body, time.time() - start, exception=e)'
+p252
+sI51
+S"            raise ConnectionError('N/A', str(e), e)"
+p253
+sI52
+S''
+sI53
+S'        if not (200 <= response.status < 300) and response.status not in ignore:'
+p254
+sI54
+S'            self.log_request_fail(method, url, body, duration, response.status)'
+p255
+sI55
+S'            self._raise_error(response.status, raw_data)'
+p256
+sI56
+S''
+sI57
+S'        self.log_request_success(method, full_url, url, body, response.status,'
+p257
+sI58
+S'            raw_data, duration)'
+p258
+sI59
+S''
+ssg93
+S'(self=<Urllib3HttpConnection: http://localhost:9200>, method=\'GET\', url=\'/tweet/_search\', params={}, body=\'{"query": {"match_all": {}}}\', timeout=None, ignore=())'
+p259
+sg95
+g237
+sa(dp260
+g72
+S'/usr/lib/python2.6/site-packages/elasticsearch/connection/base.py'
+p261
+sg74
+(dp262
+S'global HTTP_EXCEPTIONS'
+p263
+S"{400: <class 'elasticsearch.exceptions.RequestError'>, 404: <class 'elasticsearch.exceptions.NotFoundError'>, 409: <class 'elasticsearch.exceptions.ConflictError'>}"
+p264
+sS'status_code'
+p265
+S'404'
+p266
+sS'error_message'
+p267
+S"u'IndexMissingException[[tweet] missing]'"
+p268
+sS'HTTP_EXCEPTIONS.get'
+p269
+S'<built-in method get of dict object>'
+p270
+sS'global TransportError'
+p271
+S"<class 'elasticsearch.exceptions.TransportError'>"
+p272
+sS'additional_info'
+p273
+S"{u'error': u'IndexMissingException[[tweet] missing]', u'status': 404}"
+p274
+ssg80
+I83
+sg81
+(dp275
+I76
+S'        try:'
+p276
+sI77
+S'            additional_info = json.loads(raw_data)'
+p277
+sI78
+S"            error_message = additional_info.get('error', error_message)"
+p278
+sI79
+S'        except:'
+p279
+sI80
+S"            # we don't care what went wrong"
+p280
+sI81
+S'            pass'
+p281
+sI82
+S''
+sI83
+S'        raise HTTP_EXCEPTIONS.get(status_code, TransportError)(status_code, error_message, additional_info)'
+p282
+sI84
+S''
+sI85
+S''
+ssg93
+S'(self=<Urllib3HttpConnection: http://localhost:9200>, status_code=404, raw_data=u\'{"error":"IndexMissingException[[tweet] missing]","status":404}\')'
+p283
+sg95
+S'_raise_error'
+p284
+sasS'pyver'
+p285
+S'Python 2.6.6: /usr/bin/uwsgi (prefix: /usr)'
+p286
+sS'session'
+p287
+g67
+(S's\xea\x08\x00\x00<div><table><tr><td style="font-weight:bold;vertical-align:top;">auth</td><td style="vertical-align:top;">:</td><td><div><table><tr><td style="font-weight:bold;vertical-align:top;">expiration</td><td style="vertical-align:top;">:</td><td><div>3600</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">hmac_key</td><td style="vertical-align:top;">:</td><td><div>fe83682c-f060-4355-a4c5-26f0a1f11a08</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">last_visit</td><td style="vertical-align:top;">:</td><td><div>datetime.datetime(2015, 2, 16, 20, 53, 33, 16619)</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">remember_me</td><td style="vertical-align:top;">:</td><td><div>False</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">user</td><td style="vertical-align:top;">:</td><td><div><table><tr><td style="font-weight:bold;vertical-align:top;">email</td><td style="vertical-align:top;">:</td><td><div>rcsousa@br.ibm.com</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">first_name</td><td style="vertical-align:top;">:</td><td><div>Ricardo</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">id</td><td style="vertical-align:top;">:</td><td><div>3L</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">last_name</td><td style="vertical-align:top;">:</td><td><div>Sousa</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">registration_id</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">registration_key</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">reset_password_key</td><td style="vertical-align:top;">:</td><td><div></div></td></tr></table></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">user_groups</td><td style="vertical-align:top;">:</td><td><div><table><tr><td style="font-weight:bold;vertical-align:top;">3</td><td style="vertical-align:top;">:</td><td><div>user_3</div></td></tr></table></div></td></tr></table></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">flash</td><td style="vertical-align:top;">:</td><td><div>None</div></td></tr></table></div>'
+tRp288
+sS'etype'
+p289
+S"<class 'elasticsearch.exceptions.NotFoundError'>"
+p290
+sS'date'
+p291
+S'Mon Feb 16 20:58:52 2015'
+p292
+sS'response'
+p293
+g67
+(S's\xee\x1d\x00\x00<div><table><tr><td style="font-weight:bold;vertical-align:top;">body</td><td style="vertical-align:top;">:</td><td><div>&lt;cStringIO.StringO object at 0x31d38b8&gt;</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">cookies</td><td style="vertical-align:top;">:</td><td><div><table><tr><td style="font-weight:bold;vertical-align:top;">session_id_twitkiller</td><td style="vertical-align:top;">:</td><td><div>201.81.127.122-3ab74aa9-b1c1-4e8f-83f1-7761e24c7e61<table><tr><td style="font-weight:bold;vertical-align:top;">comment</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">domain</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">expires</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">httponly</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">max-age</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">path</td><td style="vertical-align:top;">:</td><td><div>/</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">secure</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">version</td><td style="vertical-align:top;">:</td><td><div></div></td></tr></table></div></td></tr></table></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">delimiters</td><td style="vertical-align:top;">:</td><td><div><table><tr><td><div>{{</div></td></tr><tr><td><div>}}</div></td></tr></table></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">files</td><td style="vertical-align:top;">:</td><td><div><table></table></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">flash</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">form_label_separator</td><td style="vertical-align:top;">:</td><td><div>: </div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">formstyle</td><td style="vertical-align:top;">:</td><td><div>table3cols</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">generic_patterns</td><td style="vertical-align:top;">:</td><td><div><table></table></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">google_analytics_id</td><td style="vertical-align:top;">:</td><td><div>None</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">headers</td><td style="vertical-align:top;">:</td><td><div><table><tr><td style="font-weight:bold;vertical-align:top;">X-Powered-By</td><td style="vertical-align:top;">:</td><td><div>web2py</div></td></tr></table></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">logo</td><td style="vertical-align:top;">:</td><td><div><a class="brand" href="http://www.web2py.com/"><b>web<span>2</span>py</b>&trade;&nbsp;</a></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">menu</td><td style="vertical-align:top;">:</td><td><div><table><tr><td><div><table><tr><td><div>Home</div></td></tr><tr><td><div>False</div></td></tr><tr><td><div>/twitkiller/default/index.load</div></td></tr><tr><td><div><table></table></div></td></tr></table></div></td></tr><tr><td><div><table><tr><td><div>User Directory</div></td></tr><tr><td><div>False</div></td></tr><tr><td><div>/twitkiller/default/user_directory.load</div></td></tr><tr><td><div><table></table></div></td></tr></table></div></td></tr></table></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">meta</td><td style="vertical-align:top;">:</td><td><div><table><tr><td style="font-weight:bold;vertical-align:top;">author</td><td style="vertical-align:top;">:</td><td><div>Your Name &lt;you@example.com&gt;</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">generator</td><td style="vertical-align:top;">:</td><td><div>Web2py Web Framework</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">keywords</td><td style="vertical-align:top;">:</td><td><div>web2py, python, framework</div></td></tr></table></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">models_to_run</td><td style="vertical-align:top;">:</td><td><div><table><tr><td><div>^\\w+\\.py$</div></td></tr><tr><td><div>^default/\\w+\\.py$</div></td></tr><tr><td><div>^default/timeline/\\w+\\.py$</div></td></tr></table></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">postprocessing</td><td style="vertical-align:top;">:</td><td><div><table></table></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">session_client</td><td style="vertical-align:top;">:</td><td><div>201.81.127.122</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">session_cookie_compression_level</td><td style="vertical-align:top;">:</td><td><div>None</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">session_cookie_expires</td><td style="vertical-align:top;">:</td><td><div>None</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">session_cookie_key</td><td style="vertical-align:top;">:</td><td><div>None</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">session_data_name</td><td style="vertical-align:top;">:</td><td><div>session_data_twitkiller</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">session_file</td><td style="vertical-align:top;">:</td><td><div>&lt;open file &#x27;/var/www/web2py/applications/twitkiller/sessions/179/1b9/201.81.127.122-3ab74aa9-b1c1-4e8f-83f1-7761e24c7e61&#x27;, mode &#x27;rb+&#x27; at 0x2e0f8a0&gt;</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">session_filename</td><td style="vertical-align:top;">:</td><td><div>/var/www/web2py/applications/twitkiller/sessions/201.81.127.122-3ab74aa9-b1c1-4e8f-83f1-7761e24c7e61</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">session_hash</td><td style="vertical-align:top;">:</td><td><div>c7eaa1d0df4bfcb755e2a38c19038c47</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">session_id</td><td style="vertical-align:top;">:</td><td><div>201.81.127.122-3ab74aa9-b1c1-4e8f-83f1-7761e24c7e61</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">session_id_name</td><td style="vertical-align:top;">:</td><td><div>session_id_twitkiller</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">session_locked</td><td style="vertical-align:top;">:</td><td><div>True</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">session_masterapp</td><td style="vertical-align:top;">:</td><td><div>twitkiller</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">session_new</td><td style="vertical-align:top;">:</td><td><div>False</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">session_storage_type</td><td style="vertical-align:top;">:</td><td><div>file</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">status</td><td style="vertical-align:top;">:</td><td><div>200</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">subtitle</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">title</td><td style="vertical-align:top;">:</td><td><div>Twitkiller</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">view</td><td style="vertical-align:top;">:</td><td><div>default/timeline.load</div></td></tr></table></div>'
+tRp294
+sS'locals'
+p295
+(dp296
+S'raw_data'
+p297
+S'u\'{"error":"IndexMissingException[[tweet] missing]","status":404}\''
+p298
+sS'self'
+p299
+S'<Urllib3HttpConnection: http://localhost:9200>'
+p300
+sS'error_message'
+p301
+S"u'IndexMissingException[[tweet] missing]'"
+p302
+sS'additional_info'
+p303
+S"{u'error': u'IndexMissingException[[tweet] missing]', u'status': 404}"
+p304
+sg16
+S'404'
+p305
+sssS'traceback'
+p306
+S'Traceback (most recent call last):\n  File "/var/www/web2py/gluon/restricted.py", line 224, in restricted\n    exec ccode in environment\n  File "/var/www/web2py/applications/twitkiller/controllers/default.py", line 138, in <module>\n  File "/var/www/web2py/gluon/globals.py", line 393, in <lambda>\n    self._caller = lambda f: f()\n  File "/var/www/web2py/gluon/tools.py", line 3444, in f\n    return action(*a, **b)\n  File "/var/www/web2py/applications/twitkiller/controllers/default.py", line 58, in timeline\n    res = es.search(index="tweet", body={"query": {"match_all": {}}})\n  File "/usr/lib/python2.6/site-packages/elasticsearch/client/utils.py", line 70, in _wrapped\n    return func(*args, params=params, **kwargs)\n  File "/usr/lib/python2.6/site-packages/elasticsearch/client/__init__.py", line 429, in search\n    params=params, body=body)\n  File "/usr/lib/python2.6/site-packages/elasticsearch/transport.py", line 274, in perform_request\n    status, headers, data = connection.perform_request(method, url, params, body, ignore=ignore)\n  File "/usr/lib/python2.6/site-packages/elasticsearch/connection/http_urllib3.py", line 55, in perform_request\n    self._raise_error(response.status, raw_data)\n  File "/usr/lib/python2.6/site-packages/elasticsearch/connection/base.py", line 83, in _raise_error\n    raise HTTP_EXCEPTIONS.get(status_code, TransportError)(status_code, error_message, additional_info)\nNotFoundError: TransportError(404, u\'IndexMissingException[[tweet] missing]\')\n'
+p307
+s.

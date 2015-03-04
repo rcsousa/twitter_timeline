@@ -1,0 +1,16 @@
+{{extend 'layout.html'}}
+<h1>User Directory</h1>
+<!-- {=following}} -->
+    <table class="table table-hover">
+{{for u in users:}}
+    {{if u.id not in following:}}
+    <tr><td>
+        <p class="lead">{{=u.first_name}} {{=u.last_name}}</p></td><td> <a class="btn btn-success" onclick="$.ajax({url: 'follow/{{=u.id}}'});$(this).attr('disabled', 'disabled');">Follow</a>
+    </td></tr>
+    {{else:}}
+    <tr><td>
+        <p class="lead">{{=u.first_name}} {{=u.last_name}}</p></td><td> <a class="btn btn-danger" onclick="$.ajax({url: 'unfollow/{{=u.id}}'});$(this).attr('disabled', 'disabled');">Unfollow</a>
+    </td></tr>
+    {{pass}}
+{{pass}}
+    </table>

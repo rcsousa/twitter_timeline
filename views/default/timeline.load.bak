@@ -1,0 +1,13 @@
+{{try:}}
+{{for k in cached_posts:}}
+<div class="posts">
+  On {{=k[2]}} {{=A(B(k[1]))}} said <blockquote class="post_body">{{=k[0]}}</blockquote>
+</div>
+
+{{pass}}
+
+{{except:}}
+<h1>
+    {{=BEAUTIFY(list)}}
+</h1>
+{{pass}}

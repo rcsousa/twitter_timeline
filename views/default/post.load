@@ -1,0 +1,12 @@
+<head>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+        <script src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
+        <script>
+            jQuery(document).ready(function(){
+                jQuery('textarea').css('height', '60px')
+                jQuery('textarea').css('width', '100%')
+            });
+    </script>
+</head>
+
+{{=form}}
